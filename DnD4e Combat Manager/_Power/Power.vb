@@ -1,9 +1,10 @@
-﻿Public Class StatPower
+﻿Imports DnD4e.LibraryHelper.ExtensionMethods
+
+Public Class StatPower
 
     ' Power Data
-    Public sName, sType, sAction, sKeywords, sDesc, sURL As String
+    Public sName, sType, sAction, sUsage, sUsageDetails, sKeywords, sDesc, sURL As String
     Public nAura As Integer
-
 
     '    Derived Properties
     Public ReadOnly Property bAura() As Boolean
@@ -15,6 +16,7 @@
             End If
         End Get
     End Property
+
     Public Property Type() As String
         Get
             If bAura Then
@@ -39,6 +41,7 @@
                 Return "???"
             End If
         End Get
+
         Set(ByVal value As String)
             value = value.ToLower.Trim
             If value.StartsWith("aura") Then
@@ -54,15 +57,16 @@
                 sType = "R"
             ElseIf value.ToLower.Contains("area") Then
                 sType = "A"
-            ElseIf value = "basic close" Or value = "basic close burst" Or value = "basic close blast" Then
+            ElseIf value = "basic close" OrElse value = "basic close burst" OrElse value = "basic close blast" Then
                 sType = "c"
-            ElseIf value = "close" Or value = "close burst" Or value = "close blast" Then
+            ElseIf value = "close" OrElse value = "close burst" OrElse value = "close blast" Then
                 sType = "C"
             Else
-                sType = ""
+                sType = String.Empty
             End If
         End Set
     End Property
+
     Public Property Desc() As String
         Get
             Return sDesc.Replace("###", ControlChars.NewLine)
@@ -71,6 +75,7 @@
             sDesc = value.Replace(ControlChars.NewLine, "###")
         End Set
     End Property
+
     Public ReadOnly Property nRechargeVal() As Integer
         Get
             If sAction Is Nothing Or sAction = "" Then
@@ -90,6 +95,7 @@
             End If
         End Get
     End Property
+
     Public ReadOnly Property bDaily() As Boolean
         Get
             If sAction.ToLower.Contains("daily") Then
@@ -99,6 +105,7 @@
             End If
         End Get
     End Property
+
     Public ReadOnly Property bItem() As Boolean
         Get
             If sAction.ToLower.Contains("item") Then
@@ -108,6 +115,7 @@
             End If
         End Get
     End Property
+
     Public ReadOnly Property bActionPoint() As Boolean
         Get
             If sName.ToLower.Contains("action point") Then
@@ -117,6 +125,7 @@
             End If
         End Get
     End Property
+
     Public ReadOnly Property bPowerPoint() As Boolean
         Get
             If sName.ToLower.Contains("power point") Then
@@ -126,7 +135,6 @@
             End If
         End Get
     End Property
-
 
     ' Display Properties
     Public ReadOnly Property sActionLine() As String
@@ -161,6 +169,25 @@
             Return " (" & line.ToString & ")"
         End Get
     End Property
+
+    Public ReadOnly Property sActionAddendum() As String
+        Get
+            Dim line As New System.Text.StringBuilder
+            line.AppendFormatIfNotEmpty("<b>&bull; {0}</b>", sUsage)
+            If nRechargeVal > 0 Then
+                line.Append(" <font face='4etools symbols'>")
+                For i As Integer = nRechargeVal To 6
+                    line.AppendFormat("{0} ", i)
+                Next
+                line.Append(" </font>")
+            Else
+                line.AppendFormatIfNotEmpty(" {0}", sUsageDetails)
+            End If
+
+            Return line.ToString()
+        End Get
+    End Property
+
     Public ReadOnly Property cForeColor() As System.Drawing.Color
         Get
             If bAura Then
@@ -182,6 +209,7 @@
             End If
         End Get
     End Property
+
     Public ReadOnly Property cBackColor() As System.Drawing.Color
         Get
             If bAura Then
@@ -209,6 +237,7 @@
     Public Sub New()
         ClearAll()
     End Sub
+
     Public Sub New(ByVal p_sName As String, ByVal p_sType As String, _
                    ByVal p_sAction As String, ByVal p_sKeywords As String, _
                    ByVal p_sDesc As String, ByVal p_nAura As Integer)
@@ -219,13 +248,14 @@
         sDesc = p_sDesc
         nAura = p_nAura
     End Sub
+
     Public Sub New(ByVal line1 As String, ByVal type As String)
         Power_DetailImport(line1, type)
     End Sub
+
     Public Sub New(ByRef tocopy As StatPower)
         Copy(tocopy)
     End Sub
-
 
     ' RTF Import/Export
     Public Sub Power_DetailImport(ByVal line1 As String, ByVal type As String)
@@ -304,6 +334,7 @@
             End If
         End If
     End Sub
+
     Public ReadOnly Property Power_RTF_Out() As String
         Get
             Dim output As New System.Text.StringBuilder
@@ -362,6 +393,7 @@
             Return output.ToString
         End Get
     End Property
+
     Public ReadOnly Property Power_HTML_Out() As String
         Get
             Dim output As New System.Text.StringBuilder
@@ -391,24 +423,21 @@
                 If (Not sName.ToLower.Contains("no name")) And (Not sName.ToLower.Contains("unnamed power")) Then
                     ' Add Type
                     output.AppendLine("<div class='ggmed'>")
-                    If sType <> "" Then
-                        output.Append("<font face='4etools symbols'>" & sType & "</font> ")
-                    End If
-                    ' Add Power Name
-                    output.Append("<b>" & sName.Replace("*", "&bull;") & "</b>")
+                    output.AppendFormatIfNotEmpty("<font face='4etools symbols'>{0}</font> ", sType)
 
-                    If sAction <> "" Then
-                        output.Append(" (" & sActionDiceHTML & ")")
-                    End If
+                    ' Add Power Name
+                    output.AppendFormat("<b>{0}</b>", sName.Replace("*", "&bull;"))
 
                     ' Add Keywords
-                    If sKeywords <> "" Then
-                        output.Append(" &bull;  " & sKeywords)
-                    End If
+                    output.AppendFormatIfNotEmpty(" ({0})", sKeywords)
+
+                    ' Add Action Addendum
+                    output.AppendFormatIfNotEmpty(" {0}", sActionAddendum)
 
                     ' Finish First line
                     output.AppendLine("</div>")
                 End If
+
                 ' Create Second Line
                 If sDesc <> "" Then
                     output.Append("<div class='gglt'><div class='ggindent'>")
@@ -434,6 +463,7 @@
             Return line.ToString
         End Get
     End Property
+
     Private ReadOnly Property sActionDiceHTML() As String
         Get
             Dim line As New System.Text.StringBuilder
@@ -446,7 +476,6 @@
             Return line.ToString
         End Get
     End Property
-
 
     ' XML Import/Export
     Public Sub ExportXML(ByRef p_writer As Object)
@@ -463,6 +492,7 @@
 
         writer.WriteEndElement()
     End Sub
+
     Public Function ImportXML(ByRef p_reader As Object) As Boolean
         Dim reader As System.Xml.XmlReader = p_reader
         Dim elementName As String = ""
@@ -499,7 +529,6 @@
         End If
     End Function
 
-
     ' Data Manipulation Functions
     Public Sub Copy(ByRef tocopy As StatPower)
         sName = tocopy.sName
@@ -510,6 +539,7 @@
         nAura = tocopy.nAura
         sURL = tocopy.sURL
     End Sub
+
     Public Sub ClearAll()
         sName = "(unnamed power)"
         sType = ""
@@ -519,6 +549,5 @@
         nAura = 0
         sURL = ""
     End Sub
-
 
 End Class

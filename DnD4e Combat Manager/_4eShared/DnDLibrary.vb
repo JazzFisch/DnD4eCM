@@ -2,12 +2,15 @@
     Shared Function StatLevelBonus(ByVal stat As Integer, ByVal level As Integer)
         Return Math.Truncate((stat / 2) - 5) + Math.Truncate(level / 2)
     End Function
+
     Shared Function LevelBonus(ByVal level As Integer)
         Return Math.Truncate(level / 2)
     End Function
+
     Shared Function StatBonus(ByVal stat As Integer)
         Return Math.Truncate((stat / 2) - 5)
     End Function
+
     Shared Function StatAndBonus(ByVal stat As Integer, ByVal level As Integer) As String
         Dim output As New System.Text.StringBuilder
         output.Append(stat.ToString & " (")
@@ -15,6 +18,7 @@
         output.Append(Math.Truncate((stat / 2) - 5) + Math.Truncate(level / 2) & ")")
         Return output.ToString
     End Function
+
     Shared Function HTMLDice(ByVal dice As Integer) As String
         Dim output As New System.Text.StringBuilder
         output.Append("<font face='4etools symbols'>")
@@ -25,6 +29,7 @@
         output.Append("</font>")
         Return output.ToString
     End Function
+
     Shared Function GetXMLFields(ByRef p_reader As Object, ByVal mainkey As String, ByVal key1 As String, ByRef prop1 As Object) As Boolean
         Dim reader As System.Xml.XmlReader = p_reader
         Dim elementName As String = ""
@@ -63,30 +68,7 @@
             Return False
         End If
     End Function
-    Shared Function IntToIteration(ByVal p_int As Integer) As String
-        Select Case p_int
-            Case 0
-                Return "Zeroth"
-            Case 1
-                Return "First"
-            Case 2
-                Return "Second"
-            Case 3
-                Return "Third"
-            Case 4
-                Return "Fourth"
-            Case 5
-                Return "Fifth"
-            Case 6
-                Return "Sixth"
-            Case 7
-                Return "Seventh"
-            Case 8
-                Return "Eighth"
-            Case Else
-                Return ""
-        End Select
-    End Function
+
     Shared Function getXMLFields(ByRef p_reader As Object, ByVal mainkey As String, ByVal key1 As String, ByRef prop1 As Object, ByVal key2 As String, ByRef prop2 As Object) As Boolean
         Dim reader As System.Xml.XmlReader = p_reader
         Dim elementName As String = ""

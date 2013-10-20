@@ -1167,7 +1167,9 @@ Public Class Statblock
             Dim statPower As New StatPower
             statPower.sName = monPower.Name
             statPower.Type = String.Format("{0}{1}", If(monPower.IsBasic, "Basic ", String.Empty), monPower.Type)
-            statPower.sAction = monPower.Action.ToLower
+            statPower.sAction = If(monPower.ActionType <> ActionType.Invalid, monPower.Action.ToLower, String.Empty)
+            statPower.sUsage = monPower.Usage
+            statPower.sUsageDetails = monPower.UsageDetails
             If Not String.IsNullOrWhiteSpace(monPower.Usage) Then
                 statPower.sAction += "; " & monPower.Usage.ToLower
                 If Not String.IsNullOrWhiteSpace(monPower.UsageDetails) Then

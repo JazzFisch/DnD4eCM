@@ -1,4 +1,5 @@
 ﻿Imports DnD4e_Combat_Manager.DnDLibrary
+Imports DnD4e.LibraryHelper.ExtensionMethods
 
 Public Class Damage
     Public sType, sDesc, sSpecial As String
@@ -307,9 +308,10 @@ Public Class Damage
             Else
                 output.Append(sDiceString)
                 If sDesc <> "" Then output.Append(" " & sDesc)
-                For Each fs As FailedSave In cFailedSaves
-                    output.Append("<div><i>" & IntToIteration(cFailedSaves.IndexOf(fs) + 1) & " Failed Saving Throw: </i>")
-                    output.Append(fs.HTML_Out(pow))
+                For i As Integer = 0 To cFailedSaves.Count
+                    Dim failed As FailedSave = cFailedSaves(i)
+                    output.Append("<div><i>" & (i + 1).ToIteration() & " Failed Saving Throw: </i>")
+                    output.Append(failed.HTML_Out(pow))
                     output.Append("</div>")
                 Next
                 For Each ae As AfterEffect In cAfterEffects
@@ -326,6 +328,7 @@ Public Class Damage
             Return output.ToString
         End Get
     End Property
+
     Public ReadOnly Property Text_Out(ByVal pow As Power) As String
         Get
             Dim output As New System.Text.StringBuilder
@@ -334,9 +337,10 @@ Public Class Damage
             Else
                 output.Append(sDiceString)
                 If sDesc <> "" Then output.Append(" " & sDesc)
-                For Each fs As FailedSave In cFailedSaves
-                    output.Append(IntToIteration(cFailedSaves.IndexOf(fs) + 1) & " Failed Saving Throw: ")
-                    output.Append(fs.HTML_Out(pow))
+                For i As Integer = 0 To cFailedSaves.Count
+                    Dim failed As FailedSave = cFailedSaves(i)
+                    output.Append((i + 1).ToIteration() & " Failed Saving Throw: ")
+                    output.Append(failed.HTML_Out(pow))
                 Next
                 For Each ae As AfterEffect In cAfterEffects
                     output.Append("Aftereffect: ")
