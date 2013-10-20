@@ -282,7 +282,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="LibraryHelper\LibraryHelper.csproj">
+    <ProjectReference Include="..\LibraryHelper\LibraryHelper.csproj">
       <Project>{3f18ceb6-e874-468b-9ee6-e0edad685b2d}</Project>
       <Name>LibraryHelper</Name>
     </ProjectReference>
@@ -293,7 +293,7 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>xcopy /y $(ProjectDir)Files\*.* $(TargetDir)</PreBuildEvent>
+    <PreBuildEvent>xcopy /y "$(ProjectDir)Files\*.*" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
