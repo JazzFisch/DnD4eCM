@@ -1115,7 +1115,7 @@ Public Class Statblock
 
     Public Function ConvertFromMonster(ByVal mon As DnD4e.LibraryHelper.Monster.Monster) As Boolean
         sName = mon.Name
-        sType = String.Join(" ", mon.Size, mon.Origin, mon.Type) ' + keywords
+        sType = String.Join(" ", mon.Size, mon.Origin, mon.Type)
         If mon.Keywords.Count > 0 Then
             sType += " (" & String.Join(", ", mon.Keywords) & ")"
         End If
@@ -1166,7 +1166,7 @@ Public Class Statblock
         For Each monPower In mon.Powers
             Dim statPower As New StatPower
             statPower.sName = monPower.Name
-            statPower.Type = monPower.Type
+            statPower.Type = String.Format("{0}{1}", If(monPower.IsBasic, "Basic ", String.Empty), monPower.Type)
             statPower.sAction = monPower.Action.ToLower
             If Not String.IsNullOrWhiteSpace(monPower.Usage) Then
                 statPower.sAction += "; " & monPower.Usage.ToLower
@@ -1177,7 +1177,7 @@ Public Class Statblock
 
             statPower.sKeywords = String.Join(", ", monPower.Keywords)
             If Not String.IsNullOrWhiteSpace(monPower.Requirements) Then statPower.sDesc += "Requirements: " & monPower.Requirements & "###"
-            If Not String.IsNullOrWhiteSpace(monPower.Trigger) Then statPower.sDesc += "Triger: " & monPower.Trigger & "###"
+            If Not String.IsNullOrWhiteSpace(monPower.Trigger) Then statPower.sDesc += "Trigger: " & monPower.Trigger & "###"
             statPower.sDesc = monPower.ToText("###")
             PowerList.Add(statPower)
         Next

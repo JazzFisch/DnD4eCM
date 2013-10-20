@@ -874,7 +874,7 @@ Public Class SecondaryAttack
     End Property
 End Class
 Public Class Attack
-    Public sRange, sTarget, sDesc As String
+    Public sRange, sTarget As String
     Public bMultiTarget As Boolean
     Public cDamages As Hashtable
     Public cAttackBonuses As New ArrayList
@@ -913,7 +913,6 @@ Public Class Attack
         writer.WriteElementString("range", sRange)
         writer.WriteElementString("target", sTarget)
         writer.WriteElementString("multitargets", bMultiTarget.ToString)
-        writer.WriteElementString("desc", sDesc)
         For Each subitem As AttackBonus In cAttackBonuses
             subitem.ExportXML(writer)
         Next
@@ -951,8 +950,6 @@ Public Class Attack
                             sTarget = reader.Value
                         Case "multitarget"
                             bMultiTarget = CBool(reader.Value)
-                        Case "desc"
-                            sDesc = reader.Value
                     End Select
                 ElseIf reader.NodeType = Xml.XmlNodeType.EndElement Then
                     If reader.Name = "attack" Then
@@ -984,7 +981,6 @@ Public Class Attack
         Dim newAttackBonus As New AttackBonus
         Dim newDamage As New Damage
         sRange = tocopy.sRange
-        sDesc = tocopy.sDesc
         sTarget = tocopy.sTarget
         bMultiTarget = tocopy.bMultiTarget
         For Each subitem As AttackBonus In tocopy.cAttackBonuses
@@ -1005,7 +1001,6 @@ Public Class Attack
     End Sub
     Public Sub ClearAll()
         sRange = ""
-        sDesc = ""
         sTarget = ""
         bMultiTarget = False
         cAttackBonuses.Clear()
@@ -1027,7 +1022,6 @@ Public Class Attack
                 If sRange <> "" And sTarget <> "" Then output.Append(" ")
                 If sTarget <> "" Then output.Append("(" & sTarget & ")")
                 If sRange <> "" Or sTarget <> "" Then output.Append("; ")
-                If sDesc <> "" Then output.Append(sDesc & "; ")
                 Dim dam As Damage = cDamages("cEffect")
                 output.Append(dam.HTML_Out(pow) & "</div>")
             Else
@@ -1046,7 +1040,6 @@ Public Class Attack
                     output.Append(ab.sHandle)
                     If index < cAttackBonuses.Count Then output.Append(", ")
                 Next
-                If sDesc <> "" Then output.Append("; " & sDesc)
                 output.Append("</div>")
                 Dim types As New ArrayList
                 types.Add("cHit")
@@ -1064,11 +1057,7 @@ Public Class Attack
             Return output.ToString
         End Get
     End Property
-    Public ReadOnly Property text_out(ByVal pow As Power) As String
-        Get
-            Return text_out(pow, "")
-        End Get
-    End Property
+
     Public ReadOnly Property Text_Out(ByVal pow As Power, ByVal delim As String) As String
         Get
             Dim output As New System.Text.StringBuilder
@@ -1078,7 +1067,6 @@ Public Class Attack
                     output.Append("(" & pow.sActionType & ")")
                 End If
                 output.Append(": ")
-                If sDesc <> "" Then output.Append(sDesc & "; ")
                 Dim dam As Damage = cDamages("cEffect")
                 output.Append(dam.Text_Out(pow))
                 output.Append(delim)
@@ -1098,7 +1086,6 @@ Public Class Attack
                     output.Append(ab.sHandle)
                     If index < cAttackBonuses.Count Then output.Append(", ")
                 Next
-                If sDesc <> "" Then output.Append("; " & sDesc)
                 output.Append(delim)
                 Dim types As New ArrayList
                 types.Add("cHit")
@@ -1378,48 +1365,6 @@ Public Class Power
         cKeywords.Clear()
         cAttacks.Clear()
     End Sub
-    Public ReadOnly Property Text_Out(ByVal lines As String) As String
-        Get
-            Dim output As New System.Text.StringBuilder
-            If lines.Contains("1") Then
-                If (Not sName.ToLower.Contains("no name")) And (Not sName.ToLower.Contains("unnamed power")) Then
-                    ' Add Power Name
-                    output.Append(sName)
-                End If
-            End If
-            If lines.Contains("2") Then
-                If sUsage <> "" Then
-                    output.Append(" * ")
-                    output.Append(" " & sUsage)
-                    If sUsageDetails <> "" Then
-                        output.Append(" " & sUsageDetails)
-                    End If
-                End If
-                If cKeywords.Count > 0 Then
-                    Dim index As Integer = 0
-                    output.Append(" (")
-                    For Each key As Keyword In cKeywords
-                        index += 1
-                        output.Append(key.sName)
-                        If index < cKeywords.Count Then output.Append(", ")
-                    Next
-                    output.Append(")")
-                End If
-
-
-                ' Finish First line
-            End If
-            ' Create Second Line
-            If lines.Contains("3") Then
-                If sRequirements <> "" Then output.AppendLine("Requirements: " & sRequirements)
-                If sTrigger <> "" Then output.AppendLine("Trigger: " & sTrigger)
-                For Each att As Attack In cAttacks
-                    output.Append(att.Text_Out(Me))
-                Next
-            End If
-            Return output.ToString
-        End Get
-    End Property
 
     Public ReadOnly Property HTML_Out() As String
         Get
