@@ -1,4 +1,6 @@
-﻿
+﻿Imports DnD4e.LibraryHelper.Common
+Imports DnD4e.LibraryHelper.ExtensionMethods
+
 Public Class Statblock
 
     ' Main Data Elements
@@ -1110,100 +1112,88 @@ Public Class Statblock
         End If
         Return False
     End Function
-    Public Function ConvertFromMonster(ByVal mon As Monster) As Boolean
-        sName = mon.sName
-        sType = mon.sTypeKeywords.ToString
-        sRole = mon.sRole
-        sRole2 = mon.sSecondaryRole
-        nLevel = mon.nLevel
-        sSenses = "Perception "
-        If mon.SkillBonus("perception") < 0 Then
-            sSenses += "-"
-        ElseIf mon.SkillBonus("perception") > 0 Then
-            sSenses += "+"
+
+    Public Function ConvertFromMonster(ByVal mon As DnD4e.LibraryHelper.Monster.Monster) As Boolean
+        sName = mon.Name
+        sType = String.Join(" ", mon.Size, mon.Origin, mon.Type) ' + keywords
+        If mon.Keywords.Count > 0 Then
+            sType += " (" & String.Join(", ", mon.Keywords) & ")"
         End If
-        sSenses += mon.SkillBonus("perception") & "; Insight "
-        If mon.SkillBonus("insight") < 0 Then
-            sSenses += "-"
-        ElseIf mon.SkillBonus("insight") > 0 Then
-            sSenses += "+"
+
+        sRole = mon.Role.ToString()
+        sRole2 = String.Empty
+        If mon.GroupRole.ToString() <> "Standard" Then
+            sRole2 = mon.GroupRole.ToString()
         End If
-        sSenses += mon.SkillBonus("insight") & "; "
-        sSenses += mon.sSenses
-        sSpeed = mon.sSpeeds.Substring(mon.sSpeeds.IndexOf(" ") + 1)
-        sResist = mon.sResistances.Substring(mon.sResistances.IndexOf(" ") + 1)
-        sImmune = mon.sImmunities.Substring(mon.sImmunities.IndexOf(" ") + 1)
-        sVuln = mon.sVulnerabilities.Substring(mon.sVulnerabilities.IndexOf(" ") + 1)
-        sRegen = mon.sRegenDetails
-        sAlignment = mon.sAlignment
-        sSkills = mon.sSkills
-        sLanguages = mon.sLanguages
-        sEquipment = mon.sEquipment
-        sSource = mon.sSource
-        nXP = mon.nXP
-        nInit = mon.nInit
-        nMaxHP = mon.nHP
-        nSaveBonus = mon.nSavingThrow
-        nActionPoints = mon.nActionPoints
-        nAC = mon.nAC
-        nFort = mon.nFort
-        nRef = mon.nRef
-        nWill = mon.nWill
-        nStr = mon.nStr
-        nDex = mon.nDex
-        nWis = mon.nWis
-        nCon = mon.nCon
-        nInt = mon.nInt
-        nCha = mon.nCha
-        bLeader = mon.bLeader
-        For Each tempPow As Power In mon.cPowers
-            Dim tempStatPow As New StatPower
-            tempStatPow.sName = tempPow.sName
-            tempStatPow.Type = tempPow.sType
-            tempStatPow.sAction = tempPow.sActionType.ToLower
-            If tempPow.sUsage <> "" Then
-                tempStatPow.sAction += "; " & tempPow.sUsage.ToLower
-                If tempPow.sUsageDetails <> "" Then
-                    tempStatPow.sAction += " " & tempPow.sUsageDetails
+
+        nLevel = mon.Level
+        sSenses = String.Format(
+            "Perception {0:+#;-#;0}; Insight {1:+#;-#;0};", _
+            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Common.Skill.Perception), mon.Skills(DnD4e.LibraryHelper.Common.Skill.Perception), 0), _
+            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Common.Skill.Insight), mon.Skills(DnD4e.LibraryHelper.Common.Skill.Insight), 0)
+        )
+        sSenses += String.Join(";", mon.Senses)
+
+        sSpeed = mon.LandSpeed.Value.ToString()
+        If mon.Speeds.Count <> 0 Then sSpeed += String.Format(", {0}", String.Join(", ", mon.Speeds))
+        sResist = String.Join(", ", mon.Resistances)
+        sImmune = String.Join(", ", mon.Immunities)
+        sVuln = String.Join(", ", mon.Weaknesses)
+        If mon.Regeneration.Value > 0 Then sRegen = String.Format("{0} ({1})", mon.Regeneration.Value, mon.Regeneration.Details)
+        sAlignment = mon.Alignment.ToString()
+        sSkills = String.Join(", ", mon.Skills.Values)
+        sLanguages = String.Join(", ", mon.Languages)
+        sEquipment = String.Join(", ", mon.Items)
+        sSource = String.Join(", ", mon.SourceBooks)
+        nXP = mon.Experience
+        nInit = mon.Initiative
+        nMaxHP = mon.HitPoints
+        nSaveBonus = mon.SavingThrows(0)
+        nActionPoints = mon.ActionPoints
+        nAC = mon.Defenses(Defense.AC)
+        nFort = mon.Defenses(Defense.Fortitude)
+        nRef = mon.Defenses(Defense.Reflex)
+        nWill = mon.Defenses(Defense.Will)
+
+        nStr = mon.AbilityScores(AbilityScore.Strength)
+        nDex = mon.AbilityScores(AbilityScore.Dexterity)
+        nWis = mon.AbilityScores(AbilityScore.Wisdom)
+        nCon = mon.AbilityScores(AbilityScore.Constitution)
+        nInt = mon.AbilityScores(AbilityScore.Intelligence)
+        nCha = mon.AbilityScores(AbilityScore.Charisma)
+        bLeader = mon.IsLeader
+
+        For Each monPower In mon.Powers
+            Dim statPower As New StatPower
+            statPower.sName = monPower.Name
+            statPower.Type = monPower.Type
+            statPower.sAction = monPower.Action.ToLower
+            If Not String.IsNullOrWhiteSpace(monPower.Usage) Then
+                statPower.sAction += "; " & monPower.Usage.ToLower
+                If Not String.IsNullOrWhiteSpace(monPower.UsageDetails) Then
+                    statPower.sAction += " " & monPower.UsageDetails
                 End If
             End If
-            If tempPow.cKeywords.Count > 0 Then
-                Dim output As New System.Text.StringBuilder
-                Dim index As Integer = 0
-                For Each key As Keyword In tempPow.cKeywords
-                    index += 1
-                    output.Append(key.sName)
-                    If index < tempPow.cKeywords.Count Then output.Append(", ")
-                Next
-                tempStatPow.sKeywords = output.ToString
-            End If
-            If tempPow.cAttacks.Count > 0 Then tempStatPow.sDesc = ""
-            If tempPow.sRequirements <> "" Then tempStatPow.sDesc += "Requirements: " & tempPow.sRequirements & "###"
-            If tempPow.sTrigger <> "" Then tempStatPow.sDesc += "Trigger: " & tempPow.sTrigger & "###"
-            For Each att As Attack In tempPow.cAttacks
-                tempStatPow.sDesc += att.text_out(tempPow, "###")
-            Next
-            PowerList.Add(tempStatPow)
+
+            statPower.sKeywords = String.Join(", ", monPower.Keywords)
+            If Not String.IsNullOrWhiteSpace(monPower.Requirements) Then statPower.sDesc += "Requirements: " & monPower.Requirements & "###"
+            If Not String.IsNullOrWhiteSpace(monPower.Trigger) Then statPower.sDesc += "Triger: " & monPower.Trigger & "###"
+            statPower.sDesc = monPower.ToText("###")
+            PowerList.Add(statPower)
         Next
-        For Each tempTrait As Trait In mon.cTraits
-            Dim tempStatPow As New StatPower
-            tempStatPow.sName = tempTrait.sName
-            tempStatPow.nAura = tempTrait.nAura
-            If tempTrait.cKeywords.Count > 0 Then
-                Dim output As New System.Text.StringBuilder
-                Dim index As Integer = 0
-                For Each key As Keyword In tempTrait.cKeywords
-                    index += 1
-                    output.Append(key.sName)
-                    If index < tempTrait.cKeywords.Count Then output.Append(", ")
-                Next
-                tempStatPow.sKeywords = output.ToString
-            End If
-            If tempTrait.sDetails <> "" Then tempStatPow.sDesc = tempTrait.sDetails
-            PowerList.Add(tempStatPow)
+
+        For Each trait In mon.Traits
+            Dim power As New StatPower
+            power.sName = trait.Name
+            power.nAura = trait.Range
+            power.sDesc = trait.Details
+            power.sKeywords = String.Join(", ", trait.Keywords)
+            PowerList.Add(power)
         Next
+
         Return True
     End Function
+
     Public Sub ImportCharFromCBXML(ByRef p_reader As Object)
         Dim reader As System.Xml.XmlReader = p_reader
         Dim elementName As String = ""

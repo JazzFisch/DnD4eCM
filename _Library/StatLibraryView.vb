@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Xml.Serialization
+Imports System.IO
 
 Public Class StatLibraryView
 
@@ -422,8 +423,8 @@ Public Class StatLibraryView
     End Sub
 
     Private Sub LoadToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadToolStripMenuItem.Click
-        Dim mon As Monster
         Dim dlgOpen As New OpenFileDialog
+        Dim mon As DnD4e.LibraryHelper.Monster.Monster
         Dim stat As Statblock
 
         With dlgOpen
@@ -433,33 +434,38 @@ Public Class StatLibraryView
             .Multiselect = True
         End With
 
-        If dlgOpen.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            For Each filename As String In dlgOpen.FileNames
-                mon = New Monster
-                If mon.LoadFromMonsterFile(filename) Then
-                    If mon.Valid Then
-                        stat = New Statblock
-                        If stat.ConvertFromMonster(mon) Then
-                            If stat.Valid Then
-                                If statlib.Contains(stat.sHandle) Then
-                                    If MsgBox(stat.sHandle & " already exists in the Library." & _
-                                              ControlChars.NewLine & "Overwrite?", _
-                                              MsgBoxStyle.OkCancel, "Statblock Found") = MsgBoxResult.Cancel Then
-                                        Exit Sub
-                                    End If
-                                End If
-                                statlib.Add(stat, True)
-                                dfFilterName.Text = ""
-                                ResetListFromClass()
-                                lbStatList.SelectedIndex = _
-                                    lbStatList.FindStringExact(stat.sHandle)
-                                lbStatList_Click(sender, e)
-                            End If
-                        End If
-
-                    End If
-                End If
-            Next
+        If Not dlgOpen.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Exit Sub
         End If
+
+        For Each filename As String In dlgOpen.FileNames
+            stat = New Statblock
+            mon = New DnD4e.LibraryHelper.Monster.Monster
+            If Not DnD4e.LibraryHelper.Monster.Monster.TryDeserializeFromPath(filename, mon) Then
+                Continue For
+            End If
+
+            If Not stat.ConvertFromMonster(mon) Then
+                Continue For
+            End If
+
+            If Not stat.Valid Then
+                Continue For
+            End If
+
+            If statlib.Contains(stat.sHandle) Then
+                If MsgBox(stat.sHandle & " already exists in the Library." & _
+                          ControlChars.NewLine & "Overwrite?", _
+                          MsgBoxStyle.OkCancel, "Statblock Found") = MsgBoxResult.Cancel Then
+                    Continue For
+                End If
+            End If
+
+            statlib.Add(stat, True)
+            dfFilterName.Text = String.Empty
+            ResetListFromClass()
+            lbStatList.SelectedIndex = lbStatList.FindStringExact(stat.sHandle)
+            lbStatList_Click(sender, e)
+        Next
     End Sub
 End Class
