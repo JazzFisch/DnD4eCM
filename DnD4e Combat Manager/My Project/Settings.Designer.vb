@@ -242,6 +242,18 @@ Namespace My
                 Me("bAutoSurge") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property bAutoSave() As Boolean
+            Get
+                Return CType(Me("bAutoSave"),Boolean)
+            End Get
+            Set
+                Me("bAutoSave") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
