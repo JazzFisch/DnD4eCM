@@ -1,5 +1,5 @@
-﻿Imports DnD4e.LibraryHelper.Common
-Imports DnD4e.LibraryHelper.ExtensionMethods
+﻿Imports DnD4e.LibraryHelper.Import.Common
+Imports DnD4e.LibraryHelper.Import.ExtensionMethods
 
 Public Class Statblock
 
@@ -1129,8 +1129,8 @@ Public Class Statblock
         nLevel = mon.Level
         sSenses = String.Format(
             "Perception {0:+#;-#;0}; Insight {1:+#;-#;0};", _
-            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Common.Skill.Perception), mon.Skills(DnD4e.LibraryHelper.Common.Skill.Perception), 0), _
-            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Common.Skill.Insight), mon.Skills(DnD4e.LibraryHelper.Common.Skill.Insight), 0)
+            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Import.Common.Skill.Perception), mon.Skills(DnD4e.LibraryHelper.Import.Common.Skill.Perception), 0), _
+            If(mon.Skills.Values.Contains(DnD4e.LibraryHelper.Import.Common.Skill.Insight), mon.Skills(DnD4e.LibraryHelper.Import.Common.Skill.Insight), 0)
         )
         sSenses += String.Join(";", mon.Senses)
 
