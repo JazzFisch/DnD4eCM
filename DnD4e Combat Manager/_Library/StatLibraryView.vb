@@ -441,7 +441,7 @@ Public Class StatLibraryView
         For Each filename As String In dlgOpen.FileNames
             stat = New Statblock
             mon = New DnD4e.LibraryHelper.Monster.Monster
-            If Not DnD4e.LibraryHelper.Monster.Monster.TryDeserializeFromPath(filename, mon) Then
+            If Not DnD4e.LibraryHelper.Monster.Monster.TryCreateFromFile(filename, mon) Then
                 Continue For
             End If
 
