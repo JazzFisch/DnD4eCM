@@ -424,7 +424,7 @@ Public Class StatLibraryView
 
     Private Sub LoadToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadToolStripMenuItem.Click
         Dim dlgOpen As New OpenFileDialog
-        Dim mon As DnD4e.LibraryHelper.Monster.Monster
+        Dim mon As DnD4e.LibraryHelper.Import.Monster.Monster
         Dim stat As Statblock
 
         With dlgOpen
@@ -440,8 +440,8 @@ Public Class StatLibraryView
 
         For Each filename As String In dlgOpen.FileNames
             stat = New Statblock
-            mon = New DnD4e.LibraryHelper.Monster.Monster
-            If Not DnD4e.LibraryHelper.Monster.Monster.TryCreateFromFile(filename, mon) Then
+            mon = New DnD4e.LibraryHelper.Import.Monster.Monster
+            If Not DnD4e.LibraryHelper.Import.Monster.Monster.TryCreateFromFile(filename, mon) Then
                 Continue For
             End If
 

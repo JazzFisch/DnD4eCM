@@ -1,5 +1,6 @@
 ﻿Imports DnD4e.LibraryHelper.Common
 Imports DnD4e.LibraryHelper.Import.ExtensionMethods
+Imports SkillEnum = DnD4e.LibraryHelper.Common.Skill
 
 Public Class Statblock
 
@@ -1113,7 +1114,7 @@ Public Class Statblock
         Return False
     End Function
 
-    Public Function ConvertFromMonster(ByVal mon As DnD4e.LibraryHelper.Monster.Monster) As Boolean
+    Public Function ConvertFromMonster(ByVal mon As DnD4e.LibraryHelper.Import.Monster.Monster) As Boolean
         sName = mon.Name
         sType = String.Join(" ", mon.Size, mon.Origin, mon.Type)
         If mon.Keywords.Count > 0 Then
@@ -1129,8 +1130,8 @@ Public Class Statblock
         nLevel = mon.Level
         sSenses = String.Format(
             "Perception {0:+#;-#;0}; Insight {1:+#;-#;0};", _
-            If(mon.Skills.Values.Contains(Skill.Perception), mon.Skills(Skill.Perception), 0), _
-            If(mon.Skills.Values.Contains(Skill.Insight), mon.Skills(Skill.Insight), 0)
+            If(mon.Skills.Values.Contains(SkillEnum.Perception), mon.Skills(SkillEnum.Perception), 0), _
+            If(mon.Skills.Values.Contains(SkillEnum.Insight), mon.Skills(SkillEnum.Insight), 0)
         )
         sSenses += String.Join(";", mon.Senses)
 
@@ -1139,7 +1140,7 @@ Public Class Statblock
         sResist = String.Join(", ", mon.Resistances)
         sImmune = String.Join(", ", mon.Immunities)
         sVuln = String.Join(", ", mon.Weaknesses)
-        If mon.Regeneration > 0 Then sRegen = String.Format("{0} ({1})", mon.Regeneration, mon.Regeneration.Details)
+        If mon.Regeneration.Value > 0 Then sRegen = String.Format("{0} ({1})", mon.Regeneration, mon.Regeneration.Details)
         sAlignment = mon.Alignment.ToString()
         sSkills = String.Join(", ", mon.Skills.Values)
         sLanguages = String.Join(", ", mon.Languages)
