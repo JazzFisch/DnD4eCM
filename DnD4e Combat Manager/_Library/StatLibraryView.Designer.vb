@@ -23,55 +23,56 @@ Partial Class StatLibraryView
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(StatLibraryView))
-        Me.SplitLeft = New System.Windows.Forms.SplitContainer
-        Me.ToolStripContainer1 = New System.Windows.Forms.ToolStripContainer
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel
-        Me.dfFilterName = New System.Windows.Forms.ToolStripTextBox
-        Me.pbClearMenuFilter = New System.Windows.Forms.ToolStripButton
-        Me.ToolStrip5 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel
-        Me.dfFilterLevelLow = New System.Windows.Forms.ToolStripTextBox
-        Me.ToolStripLabel5 = New System.Windows.Forms.ToolStripLabel
-        Me.dfFilterLevelHigh = New System.Windows.Forms.ToolStripTextBox
-        Me.dfFilterRole = New System.Windows.Forms.ToolStripComboBox
-        Me.ToolStripLabel7 = New System.Windows.Forms.ToolStripLabel
-        Me.lbStatList = New System.Windows.Forms.ListBox
-        Me.ToolStrip2 = New System.Windows.Forms.ToolStrip
-        Me.pbNewStat = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
-        Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton
-        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.pbCBLoad = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbCopyStat = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbChangeStat = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbDeleteStat = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbPaste = New System.Windows.Forms.ToolStripButton
-        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator
-        Me.SplitMiddleRight = New System.Windows.Forms.SplitContainer
-        Me.dfStatBlockHTML = New System.Windows.Forms.WebBrowser
-        Me.ToolStripContainer2 = New System.Windows.Forms.ToolStripContainer
-        Me.ToolStrip4 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel
-        Me.dfXP_Total = New System.Windows.Forms.ToolStripTextBox
-        Me.dfXPLevelFor6 = New System.Windows.Forms.ToolStripTextBox
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
-        Me.dfXPLevelFor5 = New System.Windows.Forms.ToolStripTextBox
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
-        Me.dfXPLevelFor4 = New System.Windows.Forms.ToolStripTextBox
-        Me.ToolStripLabel4 = New System.Windows.Forms.ToolStripLabel
-        Me.lbAddToBattle = New System.Windows.Forms.ListBox
-        Me.ToolStrip3 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripLabel6 = New System.Windows.Forms.ToolStripLabel
-        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbAddToBattle = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator
-        Me.pbAddListRemove = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator
+        Me.SplitLeft = New System.Windows.Forms.SplitContainer()
+        Me.ToolStripContainer1 = New System.Windows.Forms.ToolStripContainer()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
+        Me.dfFilterName = New System.Windows.Forms.ToolStripTextBox()
+        Me.pbClearMenuFilter = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStrip5 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
+        Me.dfFilterLevelLow = New System.Windows.Forms.ToolStripTextBox()
+        Me.ToolStripLabel5 = New System.Windows.Forms.ToolStripLabel()
+        Me.dfFilterLevelHigh = New System.Windows.Forms.ToolStripTextBox()
+        Me.dfFilterRole = New System.Windows.Forms.ToolStripComboBox()
+        Me.ToolStripLabel7 = New System.Windows.Forms.ToolStripLabel()
+        Me.lbStatList = New System.Windows.Forms.ListBox()
+        Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
+        Me.pbNewStat = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pbCBLoad = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbCopyStat = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbChangeStat = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbDeleteStat = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbPaste = New System.Windows.Forms.ToolStripButton()
+        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
+        Me.SplitMiddleRight = New System.Windows.Forms.SplitContainer()
+        Me.dfStatBlockHTML = New System.Windows.Forms.WebBrowser()
+        Me.ToolStripContainer2 = New System.Windows.Forms.ToolStripContainer()
+        Me.ToolStrip4 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
+        Me.dfXP_Total = New System.Windows.Forms.ToolStripTextBox()
+        Me.dfXPLevelFor6 = New System.Windows.Forms.ToolStripTextBox()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.dfXPLevelFor5 = New System.Windows.Forms.ToolStripTextBox()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.dfXPLevelFor4 = New System.Windows.Forms.ToolStripTextBox()
+        Me.ToolStripLabel4 = New System.Windows.Forms.ToolStripLabel()
+        Me.lbAddToBattle = New System.Windows.Forms.ListBox()
+        Me.ToolStrip3 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel6 = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbAddToBattle = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.pbAddListRemove = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        CType(Me.SplitLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitLeft.Panel1.SuspendLayout()
         Me.SplitLeft.Panel2.SuspendLayout()
         Me.SplitLeft.SuspendLayout()
@@ -82,6 +83,7 @@ Partial Class StatLibraryView
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip5.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
+        CType(Me.SplitMiddleRight, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitMiddleRight.Panel1.SuspendLayout()
         Me.SplitMiddleRight.Panel2.SuspendLayout()
         Me.SplitMiddleRight.SuspendLayout()
@@ -109,7 +111,7 @@ Partial Class StatLibraryView
         'SplitLeft.Panel2
         '
         Me.SplitLeft.Panel2.Controls.Add(Me.SplitMiddleRight)
-        Me.SplitLeft.Size = New System.Drawing.Size(992, 547)
+        Me.SplitLeft.Size = New System.Drawing.Size(992, 549)
         Me.SplitLeft.SplitterDistance = 330
         Me.SplitLeft.TabIndex = 0
         '
@@ -124,11 +126,11 @@ Partial Class StatLibraryView
         'ToolStripContainer1.ContentPanel
         '
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.lbStatList)
-        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(330, 472)
+        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(330, 474)
         Me.ToolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripContainer1.Name = "ToolStripContainer1"
-        Me.ToolStripContainer1.Size = New System.Drawing.Size(330, 547)
+        Me.ToolStripContainer1.Size = New System.Drawing.Size(330, 549)
         Me.ToolStripContainer1.TabIndex = 0
         Me.ToolStripContainer1.Text = "ToolStripContainer1"
         '
@@ -227,14 +229,14 @@ Partial Class StatLibraryView
         'lbStatList
         '
         Me.lbStatList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbStatList.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbStatList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbStatList.FormattingEnabled = True
         Me.lbStatList.ItemHeight = 20
         Me.lbStatList.Location = New System.Drawing.Point(0, 0)
         Me.lbStatList.Name = "lbStatList"
         Me.lbStatList.ScrollAlwaysVisible = True
         Me.lbStatList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lbStatList.Size = New System.Drawing.Size(330, 464)
+        Me.lbStatList.Size = New System.Drawing.Size(330, 474)
         Me.lbStatList.Sorted = True
         Me.lbStatList.TabIndex = 0
         '
@@ -277,13 +279,13 @@ Partial Class StatLibraryView
         'LoadToolStripMenuItem
         '
         Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
-        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(138, 22)
         Me.LoadToolStripMenuItem.Text = "Load from AT"
         '
         'pbCBLoad
         '
         Me.pbCBLoad.Name = "pbCBLoad"
-        Me.pbCBLoad.Size = New System.Drawing.Size(149, 22)
+        Me.pbCBLoad.Size = New System.Drawing.Size(138, 22)
         Me.pbCBLoad.Text = "Load from CB"
         '
         'ToolStripSeparator7
@@ -365,7 +367,7 @@ Partial Class StatLibraryView
         'SplitMiddleRight.Panel2
         '
         Me.SplitMiddleRight.Panel2.Controls.Add(Me.ToolStripContainer2)
-        Me.SplitMiddleRight.Size = New System.Drawing.Size(658, 547)
+        Me.SplitMiddleRight.Size = New System.Drawing.Size(658, 549)
         Me.SplitMiddleRight.SplitterDistance = 358
         Me.SplitMiddleRight.TabIndex = 0
         '
@@ -376,7 +378,7 @@ Partial Class StatLibraryView
         Me.dfStatBlockHTML.MinimumSize = New System.Drawing.Size(20, 20)
         Me.dfStatBlockHTML.Name = "dfStatBlockHTML"
         Me.dfStatBlockHTML.ScriptErrorsSuppressed = True
-        Me.dfStatBlockHTML.Size = New System.Drawing.Size(358, 547)
+        Me.dfStatBlockHTML.Size = New System.Drawing.Size(358, 549)
         Me.dfStatBlockHTML.TabIndex = 1
         Me.dfStatBlockHTML.WebBrowserShortcutsEnabled = False
         '
@@ -390,11 +392,11 @@ Partial Class StatLibraryView
         'ToolStripContainer2.ContentPanel
         '
         Me.ToolStripContainer2.ContentPanel.Controls.Add(Me.lbAddToBattle)
-        Me.ToolStripContainer2.ContentPanel.Size = New System.Drawing.Size(296, 497)
+        Me.ToolStripContainer2.ContentPanel.Size = New System.Drawing.Size(296, 499)
         Me.ToolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ToolStripContainer2.Location = New System.Drawing.Point(0, 0)
         Me.ToolStripContainer2.Name = "ToolStripContainer2"
-        Me.ToolStripContainer2.Size = New System.Drawing.Size(296, 547)
+        Me.ToolStripContainer2.Size = New System.Drawing.Size(296, 549)
         Me.ToolStripContainer2.TabIndex = 0
         Me.ToolStripContainer2.Text = "ToolStripContainer2"
         '
@@ -476,13 +478,13 @@ Partial Class StatLibraryView
         'lbAddToBattle
         '
         Me.lbAddToBattle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbAddToBattle.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbAddToBattle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbAddToBattle.FormattingEnabled = True
         Me.lbAddToBattle.ItemHeight = 20
         Me.lbAddToBattle.Location = New System.Drawing.Point(0, 0)
         Me.lbAddToBattle.Name = "lbAddToBattle"
         Me.lbAddToBattle.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.lbAddToBattle.Size = New System.Drawing.Size(296, 484)
+        Me.lbAddToBattle.Size = New System.Drawing.Size(200, 100)
         Me.lbAddToBattle.Sorted = True
         Me.lbAddToBattle.TabIndex = 0
         '
@@ -542,7 +544,7 @@ Partial Class StatLibraryView
         'StatLibraryView
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(992, 547)
+        Me.ClientSize = New System.Drawing.Size(992, 549)
         Me.Controls.Add(Me.SplitLeft)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(800, 576)
@@ -553,6 +555,7 @@ Partial Class StatLibraryView
         Me.Text = "Statblock Library"
         Me.SplitLeft.Panel1.ResumeLayout(False)
         Me.SplitLeft.Panel2.ResumeLayout(False)
+        CType(Me.SplitLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitLeft.ResumeLayout(False)
         Me.ToolStripContainer1.BottomToolStripPanel.ResumeLayout(False)
         Me.ToolStripContainer1.BottomToolStripPanel.PerformLayout()
@@ -569,6 +572,7 @@ Partial Class StatLibraryView
         Me.ToolStrip2.PerformLayout()
         Me.SplitMiddleRight.Panel1.ResumeLayout(False)
         Me.SplitMiddleRight.Panel2.ResumeLayout(False)
+        CType(Me.SplitMiddleRight, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitMiddleRight.ResumeLayout(False)
         Me.ToolStripContainer2.BottomToolStripPanel.ResumeLayout(False)
         Me.ToolStripContainer2.BottomToolStripPanel.PerformLayout()
